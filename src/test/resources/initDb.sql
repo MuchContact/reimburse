@@ -10,3 +10,19 @@ CREATE TABLE expense_report (
      title CHAR(50) NOT NULL,
      PRIMARY KEY (id)
 );
+
+CREATE TABLE expense_report_items (
+     id INT NOT NULL AUTO_INCREMENT,
+     reportId INT NOT NULL,
+     expenseId INT NOT NULL,
+     PRIMARY KEY (id)
+);
+
+
+CREATE TABLE audit_expense_report (
+     id INT NOT NULL AUTO_INCREMENT,
+     referenceExpenseReport VARCHAR(120),
+	   referencedPolicy VARCHAR(120),
+	   approvedAmount DOUBLE,
+     PRIMARY KEY (id)
+);

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="tw.pc.mapper.AuditedExpenseReportMapper">
-    <insert id="createReport">insert into audit-expense-report(referenceExpenseReport) VALUES (#{expenseReport.expenseReport})</insert>
+    <insert id="createReport">
+      insert into audit_expense_report(referenceExpenseReport, referencedPolicy, approvedAmount) VALUES
+      (#{expenseReport.expenseReport}, #{expenseReport.referencedPolicy}, #{expenseReport.approvedAmount})
+    </insert>
     <insert id="addExpense"></insert>
 </mapper>

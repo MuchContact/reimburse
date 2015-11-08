@@ -9,5 +9,5 @@ public interface ExpenseReportMapper {
 
     ExpenseReportBean getExpenseReportById(@Param("id") int id);
 
-    int addExpense(ExpenseReportBean report, @Param("expense") Expense expense);
+    int addExpense(@Param("report") ExpenseReportBean report, @Param("expense") Expense expense);
 }
