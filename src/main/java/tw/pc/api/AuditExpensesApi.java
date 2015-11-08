@@ -1,6 +1,7 @@
 package tw.pc.api;
 
 import tw.pc.domain.AuditExpense;
+import tw.pc.domain.AuditedExpenseReport;
 import tw.pc.domain.json.AuditExpenseRefJson;
 import tw.pc.mapper.AuditExpenseMapper;
 import tw.pc.mapper.AuditedExpenseReportMapper;
@@ -12,6 +13,12 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 public class AuditExpensesApi {
+    private AuditedExpenseReport auditedExpenseReport;
+
+    public AuditExpensesApi(AuditedExpenseReport auditReport) {
+        this.auditedExpenseReport = auditReport;
+    }
+
     @Path("/audit expenses")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -22,8 +29,8 @@ public class AuditExpensesApi {
                                        @FormParam("approvedAmount") double approvedAmount,
                                        @FormParam("policyURI") String policy){
         AuditExpense auditExpense = new AuditExpense(approvedAmount, expense, policy);
-        mapper.createExpense(auditExpense);
-        reportMapper.addExpense();
+        mapper.auditExpense(auditExpense);
+        reportMapper.addExpense(auditedExpenseReport, auditExpense);
         AuditExpenseRefJson auditExpenseRefJson = new AuditExpenseRefJson(auditExpense, uri);
         return Response.status(201).entity(auditExpenseRefJson).build();
     }

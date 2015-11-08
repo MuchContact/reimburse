@@ -4,5 +4,5 @@ import org.apache.ibatis.annotations.Param;
 import tw.pc.domain.AuditExpense;
 
 public interface AuditExpenseMapper {
-    int createExpense(@Param("auditExpense") AuditExpense auditExpense);
+    int auditExpense(@Param("auditExpense") AuditExpense auditExpense);
 }

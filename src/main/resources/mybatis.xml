@@ -18,5 +18,6 @@
         <mapper resource="db/mappers/ExpenseMapper.xml"/>
         <mapper resource="db/mappers/ExpenseReportMapper.xml"/>
         <mapper resource="db/mappers/AuditedExpenseReportMapper.xml"/>
+        <mapper resource="db/mappers/AuditExpenseMapper.xml"/>
     </mappers>
 </configuration>

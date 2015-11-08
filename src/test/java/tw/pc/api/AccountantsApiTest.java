@@ -22,6 +22,7 @@ import java.util.Map;
 import static org.hamcrest.CoreMatchers.endsWith;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -84,7 +85,7 @@ public class AccountantsApiTest extends JerseyTest{
                 .request().post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
         assertThat(response.getStatus(), is(201));
 
-        verify(auditedExpenseReportMapper, times(1)).addExpense();
+        verify(auditedExpenseReportMapper, times(1)).addExpense(any(), any());
     }
 
 

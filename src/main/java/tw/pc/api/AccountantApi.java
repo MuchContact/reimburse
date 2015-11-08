@@ -24,8 +24,10 @@ public class AccountantApi {
     }
 
     @Path("/audited expense reports/{id}")
-    public AuditExpensesApi getAuditExpenseApi(@PathParam("id") int id){
-        return new AuditExpensesApi();
+    public AuditExpensesApi getAuditExpenseApi(@PathParam("id") int id,
+                                               @BeanParam AuditedExpenseReportMapper reportMapper){
+        AuditedExpenseReport auditReport = reportMapper.getAuditReportById(id);
+        return new AuditExpensesApi(auditReport);
     }
 
 }

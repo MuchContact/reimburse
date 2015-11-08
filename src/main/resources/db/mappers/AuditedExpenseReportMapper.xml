@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="tw.pc.mapper.AuditedExpenseReportMapper">
-    <insert id="createReport">
+    <resultMap id="audit_report_map" type="tw.pc.domain.AuditedExpenseReport">
+        <id property="id" column="id"/>
+        <result property="approvedAmount" column="approvedAmount"/>
+        <result property="expenseReport" column="referenceExpenseReport"/>
+        <result property="referencedPolicy" column="referencedPolicy"/>
+    </resultMap>
+    <insert id="createReport" keyProperty="expenseReport.id" useGeneratedKeys="true">
       insert into audit_expense_report(referenceExpenseReport, referencedPolicy, approvedAmount) VALUES
       (#{expenseReport.expenseReport}, #{expenseReport.referencedPolicy}, #{expenseReport.approvedAmount})
     </insert>
-    <insert id="addExpense"></insert>
+    <insert id="addExpense" keyProperty="auditReport.id" useGeneratedKeys="true">
+        INSERT INTO audit_report_items(auditReportId, auditExpenseId) VALUES (#{auditReport.id}, #{auditExpense.id})
+    </insert>
+    <select id="getAuditReportById" resultMap="audit_report_map">
+        SELECT  approvedAmount, referenceExpenseReport, referencedPolicy from audit_expense_report where id=#{id}
+    </select>
 </mapper>
