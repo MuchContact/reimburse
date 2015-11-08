@@ -5,4 +5,6 @@ import tw.pc.domain.AuditedExpenseReport;
 
 public interface AuditedExpenseReportMapper {
     int createReport(@Param("expenseReport") AuditedExpenseReport expenseReport);
+
+    void addExpense();
 }

@@ -20,8 +20,12 @@ public class AccountantApi {
         AuditedExpenseReport auditedExpenseReport = new AuditedExpenseReport(expenseReport);
         mapper.createReport(auditedExpenseReport);
         AuditedExpenseReportRefJson auditedExpenseReportRefJson = new AuditedExpenseReportRefJson(auditedExpenseReport, uri);
-        System.out.println(auditedExpenseReportRefJson);
         return Response.status(201).entity(auditedExpenseReportRefJson).build();
+    }
+
+    @Path("/audited expense reports/{id}")
+    public AuditExpensesApi getAuditExpenseApi(@PathParam("id") int id){
+        return new AuditExpensesApi();
     }
 
 }
