@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tw.pc.mapper.ExpenseReportMapper">
+    <resultMap id="result_map" type="tw.pc.domain.ExpenseReportBean">
+        <id property="id" column="id"/>
+        <result property="name" column="title"/>
+        <result property="number" column="number"/>
+        <result property="identity" column="identity"/>
+        <result property="time" column="time"/>
+    </resultMap>
+    <insert id="createNewExpenseReport" keyProperty="report.id" useGeneratedKeys="true">insert into expense_report(title) VALUES (#{report.name})</insert>
+    <insert id="addExpense"></insert>
+    <select id="getExpenseReportById" resultMap="result_map">select id, title from expense_report</select>
+</mapper>

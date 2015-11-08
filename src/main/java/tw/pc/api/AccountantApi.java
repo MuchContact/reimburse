@@ -1,0 +1,27 @@
+package tw.pc.api;
+
+import tw.pc.domain.AuditedExpenseReport;
+import tw.pc.domain.json.AuditedExpenseReportRefJson;
+import tw.pc.mapper.AuditedExpenseReportMapper;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+
+public class AccountantApi {
+    @Path("/audited expense reports")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createNewAuditReport(@FormParam("expenseURI") String expenseReport,
+                                         @Context UriInfo uri,
+                                         @BeanParam AuditedExpenseReportMapper mapper){
+        AuditedExpenseReport auditedExpenseReport = new AuditedExpenseReport(expenseReport);
+        mapper.createReport(auditedExpenseReport);
+        AuditedExpenseReportRefJson auditedExpenseReportRefJson = new AuditedExpenseReportRefJson(auditedExpenseReport, uri);
+        System.out.println(auditedExpenseReportRefJson);
+        return Response.status(201).entity(auditedExpenseReportRefJson).build();
+    }
+
+}
