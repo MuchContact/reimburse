@@ -1,9 +1,30 @@
 group 'reimburese'
 version '1.0-SNAPSHOT'
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "http://repo.spring.io/libs-snapshot" }
+    }
+    dependencies {
+        classpath "org.flywaydb:flyway-gradle-plugin:3.0"
+        classpath 'postgresql:postgresql:9.1-901.jdbc4'
+    }
+}
 
 apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'flyway'
 
-sourceCompatibility = 1.5
+mainClassName = "tw.pc.Main"
+
+flyway {
+    driver = 'com.mysql.jdbc.Driver'
+    user = 'root'
+    password = 'admin'
+    url = 'jdbc:mysql://localhost:3307/expense'
+}
+
+sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()

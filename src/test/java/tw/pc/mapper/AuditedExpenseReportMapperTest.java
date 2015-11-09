@@ -1,5 +1,6 @@
 package tw.pc.mapper;
 
+import org.junit.Before;
 import org.junit.Test;
 import tw.pc.domain.AuditExpense;
 import tw.pc.domain.AuditedExpenseReport;
@@ -9,10 +10,18 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class AuditedExpenseReportMapperTest extends BaseMapperTest{
+    private AuditedExpenseReportMapper mapper;
+
+    @Override
+    @Before
+    public void setUp() throws Exception {
+        super.setUp();
+        mapper = sqlSession.getMapper(AuditedExpenseReportMapper.class);
+
+    }
 
     @Test
     public void should_persist_audit_expense_report_separately() throws Exception {
-        AuditedExpenseReportMapper mapper = sqlSession.getMapper(AuditedExpenseReportMapper.class);
         AuditedExpenseReport auditReport = new AuditedExpenseReport("employees/1/expense reports/1/expenses/1");
         int result = mapper.createReport(auditReport);
         assertThat(result, is(1));
@@ -20,7 +29,6 @@ public class AuditedExpenseReportMapperTest extends BaseMapperTest{
 
     @Test
     public void should_persist_audit_expense_report_with_policy() throws Exception {
-        AuditedExpenseReportMapper mapper = sqlSession.getMapper(AuditedExpenseReportMapper.class);
         AuditedExpenseReport auditReport = new AuditedExpenseReport("employees/1/expense reports/1/expenses/1", "accoutants/policies/1", 300);
         int result = mapper.createReport(auditReport);
         assertThat(result, is(1));
@@ -46,9 +54,7 @@ public class AuditedExpenseReportMapperTest extends BaseMapperTest{
         AuditedExpenseReportMapper reportMapper = sqlSession.getMapper(AuditedExpenseReportMapper.class);
         AuditedExpenseReport auditReport = new AuditedExpenseReport("employees/1/expense reports/1/expenses/1");
         reportMapper.createReport(auditReport);
-        System.out.println("id::::::::::::::::::::"+auditReport.getId());
         AuditedExpenseReport fetchedAuditReportFromDB = reportMapper.getAuditReportById(auditReport.getId());
-        System.out.println(fetchedAuditReportFromDB);
         assertThat(fetchedAuditReportFromDB.getExpenseReport(), is("employees/1/expense reports/1/expenses/1"));
         assertThat(fetchedAuditReportFromDB.getReferencedPolicy(), is(nullValue()));
 
